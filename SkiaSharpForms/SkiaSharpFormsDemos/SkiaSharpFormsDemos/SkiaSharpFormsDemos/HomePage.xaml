@@ -205,7 +205,28 @@
                           Detail="Use the skew transform for a text shadow"
                           Command="{Binding NavigateCommand}"
                           CommandParameter="{x:Type local:Transforms.SkewShadowTextPage}" />
+                
+                <!-- Matrix -->
+                <TextCell Text="Show Affine Matrix"
+                          Detail="Display the matrix for affine transforms"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:Transforms.ShowAffineMatrixPage}" />
 
+                <TextCell Text="Touch Manipulation"
+                          Detail="Pan, scale, and rotate a bitmap"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:Transforms.TouchManipulationPage}" />
+
+                <!-- Non-Affine -->
+                <TextCell Text="Taper Transform"
+                          Detail="Discover how to calculate a taper transform"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:Transforms.TaperTransformPage}" />
+
+                <TextCell Text="Show Non-Affine Matrix"
+                          Detail="Display the matrix for non-affine transforms"
+                          Command="{Binding NavigateCommand}"
+                          CommandParameter="{x:Type local:Transforms.ShowNonAffineMatrixPage}" />
             </TableSection>
         </TableRoot>
     </TableView>

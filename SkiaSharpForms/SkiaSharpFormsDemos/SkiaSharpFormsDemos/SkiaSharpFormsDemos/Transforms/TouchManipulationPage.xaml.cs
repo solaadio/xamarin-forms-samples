@@ -27,6 +27,8 @@ namespace SkiaSharpFormsDemos.Transforms
         Dictionary<long, TouchManipulationBitmap> bitmapDictionary = 
             new Dictionary<long, TouchManipulationBitmap>();
 
+        MatrixDisplay matrixDisplay = new MatrixDisplay();
+
         public TouchManipulationPage()
         {
             InitializeComponent();
@@ -105,9 +107,9 @@ namespace SkiaSharpFormsDemos.Transforms
                 bitmap.Paint(canvas);
 
             // Display the matrix in the lower-right corner
-            SKSize matrixSize = MatrixDisplay.Measure(bitmap.Matrix);
+            SKSize matrixSize = matrixDisplay.Measure(bitmap.Matrix);
 
-            MatrixDisplay.Paint(canvas, bitmap.Matrix,
+            matrixDisplay.Paint(canvas, bitmap.Matrix,
                 new SKPoint(info.Width - matrixSize.Width,
                             info.Height - matrixSize.Height));
 

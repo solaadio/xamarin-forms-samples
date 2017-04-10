@@ -47,6 +47,7 @@
     <Compile Include="Basics\FramedTextPage.cs" />
     <Compile Include="Basics\OutlinedTextPage.cs" />
     <Compile Include="IPicturePicker.cs" />
+    <Compile Include="MatrixDisplay.cs" />
     <Compile Include="Paths\FingerPaintPage.xaml.cs">
       <DependentUpon>FingerPaintPage.xaml</DependentUpon>
     </Compile>
@@ -81,6 +82,7 @@
     <Compile Include="TouchActionEventHandler.cs" />
     <Compile Include="TouchActionType.cs" />
     <Compile Include="TouchEffect.cs" />
+    <Compile Include="TouchPoint.cs" />
     <Compile Include="Transforms\AccumulatedTranslatePage.cs" />
     <Compile Include="Transforms\AnisotropicScalingPage.cs" />
     <Compile Include="Transforms\AnisotropicTextPage.cs" />

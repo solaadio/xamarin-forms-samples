@@ -17,6 +17,11 @@ namespace SkiaSharpFormsDemos.Transforms
     {
         SKBitmap bitmap;
 
+        MatrixDisplay matrixDisplay = new MatrixDisplay
+        {
+            PerspectiveFormat = "F5"
+        };
+
         public TaperTransformPage()
         {
             InitializeComponent();
@@ -64,9 +69,9 @@ namespace SkiaSharpFormsDemos.Transforms
                                         taperSide, taperCorner, taperFraction);
 
             // Display the matrix in the lower-right corner
-            SKSize matrixSize = MatrixDisplay.Measure(taperMatrix);
+            SKSize matrixSize = matrixDisplay.Measure(taperMatrix);
 
-            MatrixDisplay.Paint(canvas, taperMatrix,
+            matrixDisplay.Paint(canvas, taperMatrix,
                 new SKPoint(info.Width - matrixSize.Width,
                             info.Height - matrixSize.Height));
 
@@ -175,6 +180,8 @@ namespace SkiaSharpFormsDemos.Transforms
             }
             return matrix;
         }
+
+
 
 
 

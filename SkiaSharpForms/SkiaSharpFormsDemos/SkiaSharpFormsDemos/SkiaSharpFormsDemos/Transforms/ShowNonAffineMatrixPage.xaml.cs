@@ -19,6 +19,11 @@ namespace SkiaSharpFormsDemos.Transforms
 
         TouchPoint[] touchPoints = new TouchPoint[4];
 
+        MatrixDisplay matrixDisplay = new MatrixDisplay
+        {
+            PerspectiveFormat = "F5"
+        };
+
         public ShowNonAffineMatrixPage()
         {
             InitializeComponent();
@@ -57,34 +62,6 @@ namespace SkiaSharpFormsDemos.Transforms
             {
                 matrix = ComputeMatrix(bitmapSize, touchPoints[0].Center, touchPoints[1].Center, touchPoints[2].Center, touchPoints[3].Center);
                 canvasView.InvalidateSurface();
-            }
-        }
-
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
-        {
-            SKImageInfo info = args.Info;
-            SKSurface surface = args.Surface;
-            SKCanvas canvas = surface.Canvas;
-
-            canvas.Clear();
-
-            // Display the bitmap using the matrix
-            canvas.Save();
-            canvas.SetMatrix(matrix);
-            canvas.DrawBitmap(bitmap, 0, 0);
-            canvas.Restore();
-
-            // Display the matrix in the lower-right corner
-            SKSize matrixSize = MatrixDisplay.Measure(matrix);
-
-            MatrixDisplay.Paint(canvas, matrix,
-                new SKPoint(info.Width - matrixSize.Width,
-                            info.Height - matrixSize.Height));
-
-            // Display the touchpoints
-            foreach (TouchPoint touchPoint in touchPoints)
-            {
-                touchPoint.Paint(canvas);
             }
         }
 
@@ -130,6 +107,34 @@ namespace SkiaSharpFormsDemos.Transforms
             SKMatrix.Concat(ref result, A, intermediate);
 
             return result;
+        }
+
+        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        {
+            SKImageInfo info = args.Info;
+            SKSurface surface = args.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            canvas.Clear();
+
+            // Display the bitmap using the matrix
+            canvas.Save();
+            canvas.SetMatrix(matrix);
+            canvas.DrawBitmap(bitmap, 0, 0);
+            canvas.Restore();
+
+            // Display the matrix in the lower-right corner
+            SKSize matrixSize = matrixDisplay.Measure(matrix);
+
+            matrixDisplay.Paint(canvas, matrix,
+                new SKPoint(info.Width - matrixSize.Width,
+                            info.Height - matrixSize.Height));
+
+            // Display the touchpoints
+            foreach (TouchPoint touchPoint in touchPoints)
+            {
+                touchPoint.Paint(canvas);
+            }
         }
     }
 }
