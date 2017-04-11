@@ -12,21 +12,10 @@ using TouchTracking;
 
 namespace SkiaSharpFormsDemos.Transforms
 {
-
-
-    // Use the TouchManipulationBitmp collection for a scatter display
-
-        // Convert this to testing out options
-
-
     public partial class TouchManipulationPage : ContentPage
     {
-        List<TouchManipulationBitmap> bitmaps = 
-            new List<TouchManipulationBitmap>();
-
-        Dictionary<long, TouchManipulationBitmap> bitmapDictionary = 
-            new Dictionary<long, TouchManipulationBitmap>();
-
+        TouchManipulationBitmap bitmap;
+        List<long> touchIds = new List<long>();
         MatrixDisplay matrixDisplay = new MatrixDisplay();
 
         public TouchManipulationPage()
@@ -40,7 +29,19 @@ namespace SkiaSharpFormsDemos.Transforms
             using (SKManagedStream skStream = new SKManagedStream(stream))
             {
                 SKBitmap bitmap = SKBitmap.Decode(skStream);
-                bitmaps.Add(new TouchManipulationBitmap(bitmap));
+                this.bitmap = new TouchManipulationBitmap(bitmap);
+                this.bitmap.TouchManager.Mode = TouchManipulationMode.ScaleRotate;
+            }
+        }
+
+        void OnTouchModePickerSelectedIndexChanged(object sender, EventArgs args)
+        {
+            if (bitmap != null)
+            {
+                Picker picker = (Picker)sender;
+                TouchManipulationMode mode;
+                Enum.TryParse(picker.Items[picker.SelectedIndex], out mode);
+                bitmap.TouchManager.Mode = mode;
             }
         }
 
@@ -51,21 +52,17 @@ namespace SkiaSharpFormsDemos.Transforms
             switch (args.Type)
             {
                 case TouchActionType.Pressed:
-                    foreach (TouchManipulationBitmap bitmap in bitmaps)
+                    if (bitmap.HitTest(point))
                     {
-                        if (bitmap.HitTest(point))
-                        {
-                            bitmapDictionary.Add(args.Id, bitmap);
-                            bitmap.ProcessTouchEvent(args.Id, args.Type, point);
-                            break;
-                        }
+                        touchIds.Add(args.Id);
+                        bitmap.ProcessTouchEvent(args.Id, args.Type, point);
+                        break;
                     }
                     break;
 
                 case TouchActionType.Moved:
-                    if (bitmapDictionary.ContainsKey(args.Id))
+                    if (touchIds.Contains(args.Id))
                     {
-                        TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
                         bitmap.ProcessTouchEvent(args.Id, args.Type, point);
                         canvasView.InvalidateSurface();
                     }
@@ -73,11 +70,10 @@ namespace SkiaSharpFormsDemos.Transforms
 
                 case TouchActionType.Released:
                 case TouchActionType.Cancelled:
-                    if (bitmapDictionary.ContainsKey(args.Id))
+                    if (touchIds.Contains(args.Id))
                     {
-                        TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
                         bitmap.ProcessTouchEvent(args.Id, args.Type, point);
-                        bitmapDictionary.Remove(args.Id);
+                        touchIds.Remove(args.Id);
                         canvasView.InvalidateSurface();
                     }
                     break;
@@ -92,19 +88,8 @@ namespace SkiaSharpFormsDemos.Transforms
 
             canvas.Clear();
 
-
-
-
-            foreach (TouchManipulationBitmap bitmap in bitmaps)
-            {
-                SKPaint matrixPaint = new SKPaint
-                {
-                    Color = SKColors.Black,
-                    TextSize = 48,
-                    StrokeWidth = 2
-                };
-
-                bitmap.Paint(canvas);
+            // Display the bitmap
+            bitmap.Paint(canvas);
 
             // Display the matrix in the lower-right corner
             SKSize matrixSize = matrixDisplay.Measure(bitmap.Matrix);
@@ -112,9 +97,6 @@ namespace SkiaSharpFormsDemos.Transforms
             matrixDisplay.Paint(canvas, bitmap.Matrix,
                 new SKPoint(info.Width - matrixSize.Width,
                             info.Height - matrixSize.Height));
-
-            }
-
         }
 
         SKPoint ConvertToPixel(Point pt)

@@ -34,9 +34,9 @@ namespace SkiaSharpFormsDemos.Transforms
                 bitmap = SKBitmap.Decode(skStream);
             }
 
-            touchPoints[0] = new TouchPoint(50, 50);                  // upper-left corner
-            touchPoints[1] = new TouchPoint(bitmap.Width + 50, 50);   // upper-right corner
-            touchPoints[2] = new TouchPoint(50, bitmap.Height + 50);  // lower-left corner
+            touchPoints[0] = new TouchPoint(100, 100);                  // upper-left corner
+            touchPoints[1] = new TouchPoint(bitmap.Width + 100, 100);   // upper-right corner
+            touchPoints[2] = new TouchPoint(100, bitmap.Height + 100);  // lower-left corner
 
             bitmapSize = new SKSize(bitmap.Width, bitmap.Height);
             matrix = ComputeMatrix(bitmapSize, touchPoints[0].Center, 

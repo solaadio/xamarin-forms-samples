@@ -92,6 +92,9 @@
     <Compile Include="Transforms\BasicScalePage.xaml.cs">
       <DependentUpon>BasicScalePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transforms\BitmapScatterViewPage.xaml.cs">
+      <DependentUpon>BitmapScatterViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transforms\CenteredRotatePage.xaml.cs">
       <DependentUpon>CenteredRotatePage.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,7 @@
     <Compile Include="Transforms\HendecagramArrayPage.cs" />
     <Compile Include="Transforms\IsotropicScalingPage.cs" />
     <Compile Include="Transforms\ObliqueTextPage.cs" />
+    <Compile Include="Transforms\PathTransformPage.cs" />
     <Compile Include="Transforms\RotateAndRevolvePage.cs" />
     <Compile Include="Transforms\RotatedTextPage.cs" />
     <Compile Include="Transforms\ShowAffineMatrixPage.xaml.cs">
@@ -120,8 +124,13 @@
     <Compile Include="Transforms\TaperTransformPage.xaml.cs">
       <DependentUpon>TaperTransformPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transforms\TestPerspectivePage.xaml.cs">
+      <DependentUpon>TestPerspectivePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transforms\TouchManipulationBitmap.cs" />
     <Compile Include="Transforms\TouchManipulationInfo.cs" />
+    <Compile Include="Transforms\TouchManipulationManager.cs" />
+    <Compile Include="Transforms\TouchManipulationMode.cs" />
     <Compile Include="Transforms\TouchManipulationPage.xaml.cs">
       <DependentUpon>TouchManipulationPage.xaml</DependentUpon>
     </Compile>
@@ -275,6 +284,18 @@
     <EmbeddedResource Include="Media\FacePalm.jpg" />
     <EmbeddedResource Include="Media\MountainClimbers.jpg" />
     <EmbeddedResource Include="Media\SeatedMonkey.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Transforms\BitmapScatterViewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Transforms\TestPerspectivePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
