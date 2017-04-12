@@ -31,10 +31,10 @@
               Grid.Row="1">
             
             <skia:SKCanvasView x:Name="canvasView"
-                           PaintSurface="OnCanvasViewPaintSurface" />
+                               PaintSurface="OnCanvasViewPaintSurface" />
             <Grid.Effects>
                 <tt:TouchEffect Capture="True"
-                            TouchAction="OnTouchEffectAction" />
+                                TouchAction="OnTouchEffectAction" />
             </Grid.Effects>
         </Grid>
     </Grid>

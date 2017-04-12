@@ -40,9 +40,16 @@ namespace SkiaSharpFormsDemos.Transforms
 
         public bool HitTest(SKPoint location)
         {
+            // Invert the matrix
+            SKMatrix inverseMatrix;
+            Matrix.TryInvert(out inverseMatrix);
+
+            // Transform the point using the inverted matrix
+            SKPoint transformedPoint = inverseMatrix.MapPoint(location);
+
+            // Check if it's in the untransformed bitmap rectangle
             SKRect rect = new SKRect(0, 0, bitmap.Width, bitmap.Height);
-            rect = Matrix.MapRect(rect);
-            return rect.Contains(location);
+            return rect.Contains(transformedPoint);
         }
 
         public void ProcessTouchEvent(long id, TouchActionType type, SKPoint location)

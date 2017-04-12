@@ -47,7 +47,11 @@ namespace SkiaSharpFormsDemos.Transforms
 
         void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
-            SKPoint point = ConvertToPixel(args.Location);
+            // Convert Xamarin.Forms point to pixels
+            Point pt = args.Location;
+            SKPoint point = 
+                new SKPoint((float)(canvasView.CanvasSize.Width * pt.X / canvasView.Width),
+                            (float)(canvasView.CanvasSize.Height * pt.Y / canvasView.Height));
 
             switch (args.Type)
             {
@@ -97,12 +101,6 @@ namespace SkiaSharpFormsDemos.Transforms
             matrixDisplay.Paint(canvas, bitmap.Matrix,
                 new SKPoint(info.Width - matrixSize.Width,
                             info.Height - matrixSize.Height));
-        }
-
-        SKPoint ConvertToPixel(Point pt)
-        {
-            return new SKPoint((float)(canvasView.CanvasSize.Width * pt.X / canvasView.Width),
-                               (float)(canvasView.CanvasSize.Height * pt.Y / canvasView.Height));
         }
     }
 }
