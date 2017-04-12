@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="SkiaSharpFormsDemos.Transforms.TestPerspectivePage"
              Title="Test Perpsective">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -21,6 +20,8 @@
                 </Style>
 
                 <Style TargetType="Slider">
+                    <Setter Property="Minimum" Value="-1" />
+                    <Setter Property="Maximum" Value="1" />
                     <Setter Property="Margin" Value="20, 0" />
                 </Style>
             </ResourceDictionary>
@@ -28,39 +29,20 @@
 
         <Slider x:Name="persp0Slider"
                 Grid.Row="0"
-                Minimum="-0.1"
-                Maximum="0.1"
                 ValueChanged="sliderValueChanged" />
 
-        <Label Text="{Binding Source={x:Reference persp0Slider},
-                              Path=Value,
-                              StringFormat='Persp0 = {0:F4}'}"
+        <Label Text="0.000"
                Grid.Row="1" />
 
         <Slider x:Name="persp1Slider"
                 Grid.Row="2"
-                Minimum="-0.1"
-                Maximum="0.1"
                 ValueChanged="sliderValueChanged" />
 
-        <Label Text="{Binding Source={x:Reference persp1Slider},
-                              Path=Value,
-                              StringFormat='Persp1 = {0:F4}'}"
+        <Label Text="0.000"
                Grid.Row="3" />
 
-        <Slider x:Name="persp2Slider"
-                Grid.Row="4"
-                Minimum="-2"
-                Maximum="2"
-                ValueChanged="sliderValueChanged" />
-
-        <Label Text="{Binding Source={x:Reference persp2Slider},
-                              Path=Value,
-                              StringFormat='Persp1 = {0:F2}'}"
-               Grid.Row="5" />
-
         <skia:SKCanvasView x:Name="canvasView"
-                           Grid.Row="6"
+                           Grid.Row="4"
                            PaintSurface="OnCanvasViewPaintSurface" />
     </Grid>
 </ContentPage>

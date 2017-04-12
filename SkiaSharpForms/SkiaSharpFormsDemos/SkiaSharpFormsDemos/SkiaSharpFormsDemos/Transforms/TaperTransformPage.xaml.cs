@@ -75,7 +75,7 @@ namespace SkiaSharpFormsDemos.Transforms
                 new SKPoint(info.Width - matrixSize.Width,
                             info.Height - matrixSize.Height));
 
-            // Display the bitmap
+            // Center bitmap on canvas
             float x = (info.Width - bitmap.Width) / 2;
             float y = (info.Height - bitmap.Height) / 2;
 

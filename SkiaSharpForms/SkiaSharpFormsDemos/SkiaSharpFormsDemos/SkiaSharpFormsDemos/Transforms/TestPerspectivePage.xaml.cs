@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -29,12 +26,17 @@ namespace SkiaSharpFormsDemos.Transforms
             {
                 bitmap = SKBitmap.Decode(skStream);
             }
-
-            persp2Slider.Value = 1;
         }
 
         void sliderValueChanged(object sender, ValueChangedEventArgs args)
         {
+            // UWP Slider can't handle tiny values, hence...
+            Slider slider = (Slider)sender;
+            IList<View> children = ((Layout<View>)slider.Parent).Children;
+            int index = children.IndexOf(slider);
+            Label label = (Label)children[index + 1];
+            label.Text = (slider.Value / 100).ToString("F3");
+
             if (canvasView != null)
             {
                 canvasView.InvalidateSurface();
@@ -49,16 +51,25 @@ namespace SkiaSharpFormsDemos.Transforms
 
             canvas.Clear();
 
-            SKMatrix matrix = SKMatrix.MakeIdentity();
-            matrix.TransX = 0;
-            matrix.TransY = 0;
+            // Calculate perspective matrix
+            SKMatrix perspectiveMatrix = SKMatrix.MakeIdentity();
+            perspectiveMatrix.Persp0 = (float)persp0Slider.Value / 100;
+            perspectiveMatrix.Persp1 = (float)persp1Slider.Value / 100;
 
-            matrix.Persp0 = (float)persp0Slider.Value;
-            matrix.Persp0 = (float)persp1Slider.Value;
-            matrix.Persp0 = (float)persp2Slider.Value;
+            // Coordinates to center bitmap on canvas
+            float x = (info.Width - bitmap.Width) / 2;
+            float y = (info.Height - bitmap.Height) / 2;
+
+            // Center of bitmap
+            float xCenter = x + bitmap.Width / 2;
+            float yCenter = y + bitmap.Height / 2;
+
+            SKMatrix matrix = SKMatrix.MakeTranslation(-xCenter, -yCenter);
+            SKMatrix.PostConcat(ref matrix, perspectiveMatrix);
+            SKMatrix.PostConcat(ref matrix, SKMatrix.MakeTranslation(xCenter, yCenter));
 
             canvas.SetMatrix(matrix);
-            canvas.DrawBitmap(bitmap, 0, 0);
+            canvas.DrawBitmap(bitmap, x, y);
         }
     }
 }
