@@ -11,7 +11,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,14 +47,9 @@
     <Compile Include="UpcomingAppointmentsPage.xaml.cs">
       <DependentUpon>UpcomingAppointmentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPageCS.cs" />
-    <Compile Include="SchedulePageCS.cs" />
-    <Compile Include="TodayPageCS.cs" />
-    <Compile Include="UpcomingAppointmentsPageCS.cs" />
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsPageCS.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

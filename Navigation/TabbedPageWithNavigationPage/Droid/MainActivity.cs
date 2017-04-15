@@ -10,7 +10,9 @@ using Android.OS;
 
 namespace TabbedPageWithNavigationPage.Droid
 {
-	[Activity (Label = "TabbedPageWithNavigationPage.Droid", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity (Label = "TabbedPageWithNavigation",  
+        //Icon = "@android:color/transparent",
+        MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
 		protected override void OnCreate (Bundle bundle)
@@ -18,6 +20,8 @@ namespace TabbedPageWithNavigationPage.Droid
 			base.OnCreate (bundle);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
+
+            ActionBar.SetIcon(Android.Resource.Color.Transparent);
 
 			LoadApplication (new App ());
 		}
